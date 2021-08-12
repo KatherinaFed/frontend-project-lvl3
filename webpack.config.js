@@ -1,17 +1,18 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: __dirname + '/dist',
-    filename: 'bundle.js'
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'RSS Generator',
-      template: "index.html",
+      template: 'index.html',
     }),
   ],
   module: {
@@ -21,4 +22,3 @@ module.exports = {
   },
   mode: 'none',
 };
-
