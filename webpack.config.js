@@ -4,10 +4,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
+  devServer: {
+    host: 'localhost',
+    port: 8080,
+    contentBase: path.join(__dirname, 'dist'),
+    hot: true,
+    open: true,
+    openPage: '', // <== Добавить вот это
+  },
   output: {
-    path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -20,5 +29,4 @@ module.exports = {
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
     ],
   },
-  mode: 'none',
 };
