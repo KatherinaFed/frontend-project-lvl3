@@ -119,7 +119,7 @@ const createPostAndFeed = () => {
     } else if (arrayLinks.includes(obj.url)) {
       input.classList.add('is-invalid');
       p.classList.add('text-danger');
-      p.textContent = errorMessage.duplicate;
+      p.textContent = (errorMessage.duplicate);
     } else {
       input.classList.add('is-invalid');
       p.classList.add('text-danger');
