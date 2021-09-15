@@ -2,7 +2,6 @@ const parseRss = (rssString) => {
   const parser = new DOMParser();
   const xml = parser.parseFromString(rssString, 'application/xml');
 
-  // обработка ошибки
   const parserError = xml.querySelector('parsererror');
   if (parserError) {
     const error = new Error(parserError.textContent);
@@ -11,19 +10,19 @@ const parseRss = (rssString) => {
   }
 
   const channel = xml.querySelector('channel');
-  const titleFeed = channel.querySelector('title').textContent;
-  const descriptionFeed = channel.querySelector('description').textContent;
+  const title = channel.querySelector('title').textContent;
+  const description = channel.querySelector('description').textContent;
 
   const items = channel.querySelectorAll('item');
   const posts = [...items].map((item) => {
-    const title = item.querySelector('title').textContent;
-    const description = item.querySelector('description').textContent;
+    const titlePost = item.querySelector('title').textContent;
+    const descriptionPost = item.querySelector('description').textContent;
     const link = item.querySelector('link').textContent;
 
-    return { title, description, link };
+    return { titlePost, descriptionPost, link };
   });
 
-  return { titleFeed, descriptionFeed, posts };
+  return { title, description, posts };
 };
 
 export default parseRss;
