@@ -6,6 +6,7 @@ const en = {
       invalidURL: 'The link must be a valid URL',
       rssExists: 'RSS already exists',
       invalidRSS: 'Invalid RSS source',
+      errorNetwork: 'Network error!',
     },
     success: 'RSS successfully loaded',
     buttons: {
