@@ -7,8 +7,27 @@ import updatePosts from './updateRss.js';
 
 const form = document.querySelector('.rss-form');
 const input = document.querySelector('input');
+const allPosts = document.querySelector('.posts');
+
+// Клик на Пост
+const clickOnPost = (e) => {
+  const index = e.target.dataset.id;
+  const links = document.querySelectorAll('.fw-bold');
+  links.forEach((link) => {
+    const currLink = link.getAttribute('data-id');
+    if (index === currLink) {
+      link.classList.remove('fw-bold');
+      link.classList.add('fw-normal', 'link-secondary');
+
+      // state.visitedPost.add(index);
+      // state.modal.currentPostID = index;
+    }
+  });
+};
 
 const app = () => {
+  allPosts.addEventListener('click', (e) => clickOnPost(e));
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -18,13 +37,9 @@ const app = () => {
     const watcherDataPosts = watcher.data.posts;
 
     validateUrl(url, watcherDataFeeds)
-      .then((link) => {
-        watcher.form.error = null;
-        return link;
-      })
       .then((link) => getProxyUrl(link))
-      .then((data) => {
-        const { title, description, posts } = parseData(data);
+      .then((dataXml) => {
+        const { title, description, posts } = parseData(dataXml);
         const id = _.uniqueId();
 
         watcherDataFeeds.unshift({
@@ -38,15 +53,15 @@ const app = () => {
         watcherDataPosts.unshift(...dataPosts);
         watcher.form.process = 'success';
 
-        updatePosts(watcher);
-
-        form.reset();
+        e.target.reset();
         input.focus();
       })
       .catch((error) => {
         watcher.form.error = error;
         watcher.form.process = 'invalid';
       });
+
+    setTimeout(() => updatePosts(watcher), 5000);
   });
 };
 
