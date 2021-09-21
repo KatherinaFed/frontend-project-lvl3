@@ -1,11 +1,13 @@
-start:
-	npx webpack serve --open
+install: install-deps
 
-install:
+install-deps:
 	npm ci
 
 build:
 	npm run build
 
 lint:
-	npx eslint ./src/
+	npx eslint ./src/	
+
+start:
+	npx webpack serve --open

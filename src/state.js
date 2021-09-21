@@ -1,4 +1,5 @@
 const state = {
+  lang: 'ru',
   form: {
     process: 'initial',
     error: null,
@@ -6,6 +7,10 @@ const state = {
   data: {
     feeds: [],
     posts: [],
+  },
+  visitedPost: new Set(),
+  modal: {
+    currentPostID: null,
   },
 };
 
