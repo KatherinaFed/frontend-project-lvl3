@@ -5,10 +5,6 @@ import watcher from './view.js';
 import getProxyUrl from './proxy-loader.js';
 import updatePosts from './updateRss.js';
 
-const form = document.querySelector('.rss-form');
-const input = document.querySelector('input');
-const allPosts = document.querySelector('.posts');
-
 // Клик на Пост
 const clickOnPost = (e) => {
   const index = e.target.dataset.id;
@@ -18,14 +14,15 @@ const clickOnPost = (e) => {
     if (index === currLink) {
       link.classList.remove('fw-bold');
       link.classList.add('fw-normal', 'link-secondary');
-
-      // state.visitedPost.add(index);
-      // state.modal.currentPostID = index;
     }
   });
 };
 
 const app = () => {
+  const form = document.querySelector('form');
+  const input = document.querySelector('input');
+  const allPosts = document.querySelector('.posts');
+
   allPosts.addEventListener('click', (e) => clickOnPost(e));
 
   form.addEventListener('submit', (e) => {
