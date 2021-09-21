@@ -18,16 +18,11 @@ const clickOnPost = (e) => {
     if (index === currLink) {
       link.classList.remove('fw-bold');
       link.classList.add('fw-normal', 'link-secondary');
-
-      // state.visitedPost.add(index);
-      // state.modal.currentPostID = index;
     }
   });
 };
 
 const app = () => {
-  allPosts.addEventListener('click', (e) => clickOnPost(e));
-
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -63,6 +58,8 @@ const app = () => {
 
     setTimeout(() => updatePosts(watcher), 5000);
   });
+
+  allPosts.addEventListener('click', (e) => clickOnPost(e));
 };
 
 export default app;
