@@ -12,6 +12,10 @@ const messages = {
     ru: ru.translation.success,
     en: en.translation.success,
   },
+  error: {
+    ru: ru.translation.errors.errorNetwork,
+    en: en.translation.errors.errorNetwork,
+  },
 };
 
 const feedback = document.querySelector('.feedback');
