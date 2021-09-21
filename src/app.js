@@ -18,9 +18,6 @@ const clickOnPost = (e) => {
     if (index === currLink) {
       link.classList.remove('fw-bold');
       link.classList.add('fw-normal', 'link-secondary');
-
-      // state.visitedPost.add(index);
-      // state.modal.currentPostID = index;
     }
   });
 };
