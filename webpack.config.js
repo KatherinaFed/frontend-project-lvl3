@@ -10,9 +10,6 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     contentBase: path.join(__dirname, 'dist'),
-    hot: true,
-    open: true,
-    openPage: '', // <== Добавить вот это
   },
   output: {
     filename: 'bundle.js',
@@ -21,7 +18,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'RSS Generator',
-      template: 'index.html',
+      template: './index.html',
     }),
   ],
   module: {
