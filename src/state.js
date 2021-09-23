@@ -8,10 +8,6 @@ const state = {
     feeds: [],
     posts: [],
   },
-  visitedPost: new Set(),
-  modal: {
-    currentPostID: null,
-  },
 };
 
 export default state;

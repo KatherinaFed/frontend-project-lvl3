@@ -1,19 +1,16 @@
 const ru = {
   translation: {
-    feeds: 'Фиды',
-    posts: 'Посты',
+    messageSuccess: {
+      success: 'RSS успешно загружен',
+    },
     errors: {
       invalidURL: 'Ссылка должна быть валидным URL',
       rssExists: 'RSS уже существует',
       invalidRSS: 'Ресурс не содержит валидный RSS',
       errorNetwork: 'Ошибка сети',
     },
-    success: 'RSS успешно загружен',
-    buttons: {
-      add: 'Добавить',
+    button: {
       view: 'Просмотр',
-      close: 'Закрыть',
-      read: 'Читать полностью',
     },
   },
 };

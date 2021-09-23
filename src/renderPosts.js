@@ -43,13 +43,13 @@ const modalWindow = (divPosts, dataPosts) => {
 };
 
 // Отрисовка Постов RU
-const createPostsRU = (data) => {
+const createPosts = (data, t) => {
   posts.innerHTML = `<h2 class="card-title h4 posts">Посты</h2>
   <ul class="list-group border-0 rounded-0">
   ${data.map(({ title, url }, i) => `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
   <a href="${url}" class="fw-bold" data-id=${i} target="_blank" rel="noopener noreferrer">${title}</a>
   <button type="button" class="btn btn-outline-primary btn-sm" data-id=${i} data-bs-toggle="modal" data-bs-target="#modal">
-  Просмотр
+  ${t('button.view')}
   </button>
   </li>`).join('\n')}
   </ul>`;
@@ -57,19 +57,4 @@ const createPostsRU = (data) => {
   modalWindow(posts, data);
 };
 
-// Отрисовка Постов EN
-const createPostsEN = (data) => {
-  posts.innerHTML = `<h2 class="card-title h4 posts">Posts</h2>
-  <ul class="list-group border-0 rounded-0">
-  ${data.map(({ title, url }, i) => `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
-  <a href="${url}" class="fw-bold" data-id=${i} target="_blank" rel="noopener noreferrer">${title}</a>
-  <button type="button" class="btn btn-outline-primary btn-sm" data-id=${i} data-bs-toggle="modal" data-bs-target="#modal">
-  Просмотр
-  </button>
-  </li>`).join('\n')}
-  </ul>`;
-
-  modalWindow(posts, data);
-};
-
-export { createPostsRU, createPostsEN };
+export default createPosts;

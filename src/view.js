@@ -1,22 +1,17 @@
 import onChange from 'on-change';
+import i18next from 'i18next';
 import state from './state.js';
-import { ru, en } from './locales/index.js';
-import { createFeedsEN, createFeedsRU } from './renderFeeds.js';
-import { createPostsEN, createPostsRU } from './renderPosts.js';
-import changeLang from './changeLang.js';
+import ru from './locales/ru.js';
+import createFeeds from './renderFeeds.js';
+import createPosts from './renderPosts.js';
 
-changeLang(state);
-
-const messages = {
-  success: {
-    ru: ru.translation.success,
-    en: en.translation.success,
+const i18n = i18next.createInstance().init({
+  lng: 'ru',
+  debug: true,
+  resources: {
+    ru,
   },
-  error: {
-    ru: ru.translation.errors.errorNetwork,
-    en: en.translation.errors.errorNetwork,
-  },
-};
+});
 
 const feedback = document.querySelector('p.feedback');
 
@@ -24,46 +19,32 @@ const watcher = onChange(state, (path, value) => {
   switch (path) {
     case 'form.process':
       if (value === 'success') {
-        if (state.lang === 'ru') {
-          feedback.textContent = messages.success.ru;
-          feedback.classList.remove('text-danger');
-          feedback.classList.add('text-success');
-        } else {
-          feedback.textContent = messages.success.en;
-          feedback.classList.remove('text-danger');
-          feedback.classList.add('text-success');
-        }
+        i18n.then((t) => {
+          feedback.textContent = t('messageSuccess.success');
+        });
+        feedback.classList.remove('text-danger');
+        feedback.classList.add('text-success');
       }
       break;
     case 'form.error':
       if (value) {
-        if (state.lang === 'ru') {
-          feedback.textContent = value.message;
-          feedback.classList.remove('text-success');
-          feedback.classList.add('text-danger');
-        } else {
-          feedback.textContent = value.message;
-          feedback.classList.remove('text-success');
-          feedback.classList.add('text-danger');
-        }
+        i18n.then((t) => {
+          feedback.textContent = t(value.message);
+        });
+        feedback.classList.remove('text-success');
+        feedback.classList.add('text-danger');
       }
       break;
     case 'data.feeds':
-      if (state.lang === 'ru') {
-        createFeedsRU(value);
-      } else {
-        createFeedsEN(value);
-      }
+      createFeeds(value);
       break;
     case 'data.posts':
-      if (state.lang === 'ru') {
-        createPostsRU(value);
-      } else {
-        createPostsEN(value);
-      }
+      i18n.then((t) => {
+        createPosts(value, t);
+      });
       break;
     default:
-      break;
+      throw new Error(`Unknown state at ${path} for ${value}`);
   }
 });
 

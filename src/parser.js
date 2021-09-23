@@ -1,23 +1,3 @@
-import { ru, en } from './locales/index.js';
-import state from './state.js';
-
-const errors = {
-  ru: ru.translation.errors.invalidRSS,
-  en: en.translation.errors.invalidRSS,
-};
-
-const getError = () => {
-  if (state.lang === 'ru') {
-    const error = new Error(errors.ru);
-    error.name = 'Error parsing XML';
-    throw error;
-  } else {
-    const error = new Error(errors.en);
-    error.name = 'Error parsing XML';
-    throw error;
-  }
-};
-
 const getItem = (element, name) => (element.querySelector(name).textContent);
 
 const parseRss = (rssString) => {
@@ -26,7 +6,7 @@ const parseRss = (rssString) => {
 
   const parserError = xml.querySelector('parsererror');
   if (parserError) {
-    getError();
+    throw new Error('errors.invalidRSS');
   }
 
   const channel = xml.querySelector('channel');
