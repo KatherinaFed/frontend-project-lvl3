@@ -39,6 +39,7 @@ const watcher = onChange(state, (path, value) => {
       if (value) {
         if (state.lang === 'ru') {
           feedback.textContent = value.message;
+          console.log(value.message)
           feedback.classList.remove('text-success');
           feedback.classList.add('text-danger');
         } else {

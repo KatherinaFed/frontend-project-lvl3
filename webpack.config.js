@@ -10,8 +10,9 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     contentBase: path.join(__dirname, 'dist'),
-    progress: true,
-    compress: true,
+    hot: true,
+    open: true,
+    openPage: '',
   },
   output: {
     filename: 'bundle.js',
