@@ -1,6 +1,5 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-// import state from './state.js';
 import ru from './locales/ru.js';
 import createFeeds from './renderFeeds.js';
 import createPosts from './renderPosts.js';
@@ -13,9 +12,8 @@ const i18n = i18next.createInstance().init({
   },
 });
 
-const feedback = document.querySelector('p.feedback');
-
 const renderWatcher = (path, value) => {
+  const feedback = document.querySelector('p.feedback');
   switch (path) {
     case 'form.process':
       if (value === 'success') {
