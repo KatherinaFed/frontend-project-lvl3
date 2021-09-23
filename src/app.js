@@ -54,7 +54,7 @@ const app = () => {
         input.focus();
       })
       .catch((error) => {
-        watcher.form.error = error.message;
+        watcher.form.error = error;
         watcher.form.process = 'invalid';
       });
 

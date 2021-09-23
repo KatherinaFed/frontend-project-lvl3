@@ -18,7 +18,7 @@ const messages = {
   },
 };
 
-const feedback = document.querySelector('.feedback');
+const feedback = document.querySelector('p.feedback');
 
 const watcher = onChange(state, (path, value) => {
   switch (path) {
