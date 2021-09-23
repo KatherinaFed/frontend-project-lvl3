@@ -4,18 +4,18 @@ import ru from './locales/ru.js';
 import createFeeds from './renderFeeds.js';
 import createPosts from './renderPosts.js';
 
-const i18n = i18next.createInstance().init({
-  lng: 'ru',
-  debug: true,
-  resources: {
-    ru,
-  },
-});
-
 const renderWatcher = (path, value) => {
   const feedback = document.querySelector('p.feedback');
   const input = document.getElementById('url-input');
   const button = document.querySelector('button[type=submit]');
+
+  const i18n = i18next.createInstance().init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
 
   switch (path) {
     case 'form.process':
