@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-import state from './state.js';
+// import state from './state.js';
 import ru from './locales/ru.js';
 import createFeeds from './renderFeeds.js';
 import createPosts from './renderPosts.js';
@@ -15,7 +15,7 @@ const i18n = i18next.createInstance().init({
 
 const feedback = document.querySelector('p.feedback');
 
-const watcher = onChange(state, (path, value) => {
+const renderWatcher = (path, value) => {
   switch (path) {
     case 'form.process':
       if (value === 'success') {
@@ -46,6 +46,6 @@ const watcher = onChange(state, (path, value) => {
     default:
       throw new Error(`Unknown state at ${path} for ${value}`);
   }
-});
+};
 
-export default watcher;
+export default (state) => onChange(state, renderWatcher);

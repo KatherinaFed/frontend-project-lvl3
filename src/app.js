@@ -23,6 +23,19 @@ const app = () => {
   const input = document.querySelector('input');
   const allPosts = document.querySelector('.posts');
 
+  const state = {
+    form: {
+      process: 'initial',
+      error: null,
+    },
+    data: {
+      feeds: [],
+      posts: [],
+    },
+  };
+
+  const watchedState = watcher(state);
+
   allPosts.addEventListener('click', (e) => clickOnPost(e));
 
   form.addEventListener('submit', (e) => {
@@ -30,8 +43,8 @@ const app = () => {
 
     const formData = new FormData(e.target);
     const url = formData.get('url');
-    const watcherDataFeeds = watcher.data.feeds;
-    const watcherDataPosts = watcher.data.posts;
+    const watcherDataFeeds = watchedState.data.feeds;
+    const watcherDataPosts = watchedState.data.posts;
 
     validateUrl(url, watcherDataFeeds)
       .then((link) => getProxyUrl(link))
@@ -48,17 +61,17 @@ const app = () => {
 
         const dataPosts = posts.map((post) => ({ ...post, feedId: id }));
         watcherDataPosts.unshift(...dataPosts);
-        watcher.form.process = 'success';
+        watchedState.form.process = 'success';
 
         e.target.reset();
         input.focus();
       })
       .catch((error) => {
-        watcher.form.error = error;
-        watcher.form.process = 'invalid';
+        watchedState.form.error = error;
+        watchedState.form.process = 'invalid';
       });
 
-    setTimeout(() => updatePosts(watcher), 5000);
+    setTimeout(() => updatePosts(watchedState), 5000);
   });
 };
 

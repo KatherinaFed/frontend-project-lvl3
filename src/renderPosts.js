@@ -24,7 +24,7 @@ const modalWindow = (divPosts, dataPosts) => {
       postDescription.textContent = dataPosts[index].description;
 
       const postLink = modal.querySelector('.full-article');
-      postLink.href = dataPosts[index].link;
+      postLink.href = dataPosts[index].url;
 
       const closeModal = document.querySelectorAll('[data-bs-dismiss="modal"]');
       closeModal.forEach((btn) => {
