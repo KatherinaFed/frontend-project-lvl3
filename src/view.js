@@ -14,14 +14,24 @@ const i18n = i18next.createInstance().init({
 
 const renderWatcher = (path, value) => {
   const feedback = document.querySelector('p.feedback');
+  const input = document.getElementById('url-input');
+  const button = document.querySelector('button[type=submit]');
+
   switch (path) {
     case 'form.process':
+      if (value === 'sending') {
+        input.classList.remove('is-invalid');
+        input.setAttribute('readonly', 'true');
+        button.disabled = true;
+      }
       if (value === 'success') {
         i18n.then((t) => {
           feedback.textContent = t('messageSuccess.success');
         });
         feedback.classList.remove('text-danger');
         feedback.classList.add('text-success');
+        input.removeAttribute('readonly');
+        button.disabled = false;
       }
       break;
     case 'form.error':
@@ -31,6 +41,8 @@ const renderWatcher = (path, value) => {
         });
         feedback.classList.remove('text-success');
         feedback.classList.add('text-danger');
+        input.removeAttribute('readonly');
+        button.disabled = false;
       }
       break;
     case 'data.feeds':

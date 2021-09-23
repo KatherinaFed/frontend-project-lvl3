@@ -47,7 +47,10 @@ const app = () => {
     const watcherDataPosts = watchedState.data.posts;
 
     validateUrl(url, watcherDataFeeds)
-      .then((link) => getProxyUrl(link))
+      .then((link) => {
+        watchedState.form.process = 'sending';
+        return getProxyUrl(link);
+      })
       .then((dataXml) => {
         const { title, description, posts } = parseData(dataXml);
         const id = _.uniqueId();
