@@ -5,7 +5,6 @@ import watcher from './view.js';
 import getProxyUrl from './proxy-loader.js';
 import updatePosts from './updateRss.js';
 
-// Клик на Пост
 const clickOnPost = (e) => {
   const index = e.target.dataset.id;
   const links = document.querySelectorAll('.fw-bold');
@@ -18,9 +17,9 @@ const clickOnPost = (e) => {
   });
 };
 
+// Init function
 const app = () => {
   const form = document.querySelector('form');
-  const input = document.querySelector('input');
   const allPosts = document.querySelector('.posts');
 
   const state = {
@@ -36,8 +35,10 @@ const app = () => {
 
   const watchedState = watcher(state);
 
+  // Click on the post
   allPosts.addEventListener('click', (e) => clickOnPost(e));
 
+  // Submit form
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -65,9 +66,6 @@ const app = () => {
         const dataPosts = posts.map((post) => ({ ...post, feedId: id }));
         watcherDataPosts.unshift(...dataPosts);
         watchedState.form.process = 'success';
-
-        e.target.reset();
-        input.focus();
       })
       .catch((error) => {
         watchedState.form.error = error;

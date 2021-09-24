@@ -1,6 +1,6 @@
 const posts = document.querySelector('.posts');
 
-// Предпросмотр постов
+// Modal window
 const modalWindow = (divPosts, dataPosts) => {
   const buttonShowModal = divPosts.querySelectorAll('[data-bs-toggle="modal"]');
   buttonShowModal.forEach((openModal) => {
@@ -42,7 +42,7 @@ const modalWindow = (divPosts, dataPosts) => {
   });
 };
 
-// Отрисовка Постов RU
+// render Posts
 const createPosts = (data, t) => {
   posts.innerHTML = `<h2 class="card-title h4 posts">Посты</h2>
   <ul class="list-group border-0 rounded-0">

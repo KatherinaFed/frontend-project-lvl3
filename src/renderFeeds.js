@@ -1,6 +1,6 @@
 const feeds = document.querySelector('.feeds');
 
-// Отрисовка Фидов
+// render Feeds
 const createFeeds = (data) => {
   feeds.innerHTML = `<h2 class="card-title h4 feeds">Фиды</h2>
   <ul class="list-group border-0 rounded-0">
