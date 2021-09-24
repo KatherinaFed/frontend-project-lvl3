@@ -14,11 +14,12 @@ const handleProcess = (value, i18n) => {
     button.disabled = true;
   }
   if (value === 'success') {
+    feedback.classList.remove('text-danger');
+    feedback.classList.add('text-success');
     i18n.then((t) => {
       feedback.textContent = t('messageSuccess.success');
     });
-    feedback.classList.remove('text-danger');
-    feedback.classList.add('text-success');
+
     input.removeAttribute('readonly');
     button.disabled = false;
     input.value = '';
