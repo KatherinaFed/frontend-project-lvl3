@@ -1,19 +1,9 @@
 import onChange from 'on-change';
-import i18next from 'i18next';
-import ru from './locales/ru.js';
 import createFeeds from './renderFeeds.js';
 import createPosts from './renderPosts.js';
 
-const i18n = i18next.createInstance().init({
-  lng: 'ru',
-  debug: true,
-  resources: {
-    ru,
-  },
-});
-
 // Handler form.process
-const handleProcess = (value) => {
+const handleProcess = (value, i18n) => {
   const feedback = document.querySelector('p.feedback');
   const input = document.getElementById('url-input');
   const button = document.querySelector('button[type=submit]');
@@ -37,7 +27,7 @@ const handleProcess = (value) => {
 };
 
 // Errors
-const handleError = (value) => {
+const handleError = (value, i18n) => {
   const feedback = document.querySelector('p.feedback');
   const input = document.getElementById('url-input');
   const button = document.querySelector('button[type=submit]');
@@ -58,25 +48,31 @@ const handleError = (value) => {
 };
 
 // WatcherState
-const renderWatcher = (path, value) => {
-  switch (path) {
-    case 'form.process':
-      handleProcess(value);
-      break;
-    case 'form.error':
-      handleError(value);
-      break;
-    case 'data.feeds':
-      createFeeds(value);
-      break;
-    case 'data.posts':
-      i18n.then((t) => {
-        createPosts(value, t);
-      });
-      break;
-    default:
-      throw new Error(`Unknown state at ${path} for ${value}`);
-  }
+const watchedStateWrapper = (state, i18n) => {
+  const render = (path, value) => {
+    switch (path) {
+      case 'form.process':
+        handleProcess(value, i18n);
+        break;
+      case 'form.error':
+        handleError(value, i18n);
+        break;
+      case 'data.feeds':
+        createFeeds(value);
+        break;
+      case 'data.posts':
+        i18n.then((t) => {
+          createPosts(value, t);
+        });
+        break;
+      default:
+        throw new Error(`Unknown state at ${path} for ${value}`);
+    }
+  };
+
+  const watchState = onChange(state, render);
+
+  return watchState;
 };
 
-export default (state) => onChange(state, renderWatcher);
+export default watchedStateWrapper;
