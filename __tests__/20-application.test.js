@@ -72,8 +72,6 @@ test('adding', async () => {
   const handler = getResponseHandler(rssUrl, rss1);
   server.use(handler);
 
-  console.log(Object.prototype.toString.call(userEvent.type));
-
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 

@@ -41,9 +41,6 @@ const handleError = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t(value.message);
     });
-  } else {
-    feedback.classList.remove('text-danger');
-    feedback.textContent = '';
   }
 };
 

@@ -23,19 +23,6 @@ const modalWindow = (divPosts, dataPosts) => {
 
       const postLink = modal.querySelector('.full-article');
       postLink.href = dataPosts[index].url;
-
-      const closeModal = document.querySelectorAll('[data-bs-dismiss="modal"]');
-      closeModal.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          document.querySelector('body').classList.remove('modal-open');
-
-          modal.classList.remove('show');
-          modal.style.display = 'none';
-          modal.setAttribute('aria-hidden', 'true');
-          modal.removeAttribute('aria-modal');
-          modal.removeAttribute('role');
-        });
-      });
     });
   });
 };

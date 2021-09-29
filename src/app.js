@@ -26,7 +26,7 @@ const app = () => {
 
   const i18n = i18next.createInstance().init({
     lng: 'ru',
-    debug: true,
+    debug: false,
     resources: {
       ru,
     },
