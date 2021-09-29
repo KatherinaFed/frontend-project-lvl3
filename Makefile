@@ -10,7 +10,7 @@ lint:
 	npx eslint ./src/
 
 test:
-	npm test -- --coverage --coverageProvider=v8
+	npm test
 
 start:
 	npx webpack serve --open

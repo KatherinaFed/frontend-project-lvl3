@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
 
 import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
