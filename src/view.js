@@ -18,7 +18,6 @@ const handleProcess = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t('messageSuccess.success');
     });
-    // console.log('innerHTML: ', feedback.textContent)
 
     input.removeAttribute('readonly');
     button.disabled = false;
@@ -42,7 +41,6 @@ const handleError = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t(value.message);
     });
-    // console.log('innerHTML error: ' ,feedback.textContent)
   } else {
     feedback.classList.remove('text-danger');
     feedback.textContent = '';
