@@ -1,7 +1,5 @@
-const feeds = document.querySelector('.feeds');
-
-// render Feeds
 const createFeeds = (data) => {
+  const feeds = document.querySelector('.feeds');
   feeds.innerHTML = `<h2 class="card-title h4 feeds">Фиды</h2>
   <ul class="list-group border-0 rounded-0">
   ${data.map(({ title, description }) => `<li class= "list-group-item border-0 rounded-0">

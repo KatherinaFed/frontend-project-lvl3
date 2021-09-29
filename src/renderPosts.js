@@ -1,5 +1,3 @@
-const posts = document.querySelector('.posts');
-
 // Modal window
 const modalWindow = (divPosts, dataPosts) => {
   const buttonShowModal = divPosts.querySelectorAll('[data-bs-toggle="modal"]');
@@ -44,6 +42,7 @@ const modalWindow = (divPosts, dataPosts) => {
 
 // render Posts
 const createPosts = (data, t) => {
+  const posts = document.querySelector('.posts');
   posts.innerHTML = `<h2 class="card-title h4 posts">Посты</h2>
   <ul class="list-group border-0 rounded-0">
   ${data.map(({ title, url }, i) => `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">

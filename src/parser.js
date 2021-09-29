@@ -1,6 +1,6 @@
-const getItem = (element, name) => (element.querySelector(name).textContent);
-
 const parseRss = (rssString) => {
+  const getItem = (element, name) => (element.querySelector(name).textContent);
+
   const parser = new DOMParser();
   const xml = parser.parseFromString(rssString, 'application/xml');
 

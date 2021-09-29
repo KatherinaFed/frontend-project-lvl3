@@ -1,0 +1,12 @@
+{
+  "targets": {
+    "node": "current"
+  },
+  "plugins": ["@babel/plugin-transform-runtime"],
+  "env": {
+    "test": {
+      "presets": ["@babel/preset-env"],
+      "plugins": ["istanbul"]
+    }
+  }
+}

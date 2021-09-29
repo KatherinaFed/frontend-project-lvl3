@@ -9,7 +9,6 @@ const handleProcess = (value, i18n) => {
   const button = document.querySelector('button[type=submit]');
 
   if (value === 'sending') {
-    input.classList.remove('is-invalid');
     input.setAttribute('readonly', 'true');
     button.disabled = true;
   }
@@ -19,10 +18,11 @@ const handleProcess = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t('messageSuccess.success');
     });
+    console.log('innerHTML: ', feedback.textContent)
 
     input.removeAttribute('readonly');
     button.disabled = false;
-    input.value = '';
+
     input.focus();
   }
 };
@@ -36,19 +36,20 @@ const handleError = (value, i18n) => {
   input.removeAttribute('readonly');
   button.disabled = false;
 
-  if (value === null) {
-    feedback.classList.remove('text-danger');
-    feedback.textContent = '';
-  } else {
+  if (value) {
+    console.log(value)
+    feedback.classList.remove('text-success');
+    feedback.classList.add('text-danger');
     i18n.then((t) => {
       feedback.textContent = t(value.message);
     });
-    feedback.classList.remove('text-success');
-    feedback.classList.add('text-danger');
+    console.log('innerHTML error: ' ,feedback.textContent)
+  } else {
+    feedback.classList.remove('text-danger');
+    feedback.textContent = '';
   }
 };
 
-// WatcherState
 const watchedStateWrapper = (state, i18n) => {
   const render = (path, value) => {
     switch (path) {
