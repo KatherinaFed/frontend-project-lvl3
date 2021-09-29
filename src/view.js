@@ -1,70 +1,79 @@
 import onChange from 'on-change';
-import state from './state.js';
-import { ru, en } from './locales/index.js';
-import { createFeedsEN, createFeedsRU } from './renderFeeds.js';
-import { createPostsEN, createPostsRU } from './renderPosts.js';
-import changeLang from './changeLang.js';
+import createFeeds from './renderFeeds.js';
+import createPosts from './renderPosts.js';
 
-changeLang(state);
+// Handler form.process
+const handleProcess = (value, i18n) => {
+  const feedback = document.querySelector('p.feedback');
+  const input = document.getElementById('url-input');
+  const button = document.querySelector('button[type=submit]');
 
-const messages = {
-  success: {
-    ru: ru.translation.success,
-    en: en.translation.success,
-  },
-  error: {
-    ru: ru.translation.errors.errorNetwork,
-    en: en.translation.errors.errorNetwork,
-  },
+  if (value === 'sending') {
+    input.setAttribute('readonly', 'true');
+    button.disabled = true;
+  }
+  if (value === 'success') {
+    feedback.classList.remove('text-danger');
+    feedback.classList.add('text-success');
+    i18n.then((t) => {
+      feedback.textContent = t('messageSuccess.success');
+    });
+    // console.log('innerHTML: ', feedback.textContent)
+
+    input.removeAttribute('readonly');
+    button.disabled = false;
+
+    input.focus();
+  }
 };
 
-const feedback = document.querySelector('.feedback');
+// Errors
+const handleError = (value, i18n) => {
+  const feedback = document.querySelector('p.feedback');
+  const input = document.getElementById('url-input');
+  const button = document.querySelector('button[type=submit]');
 
-const watcher = onChange(state, (path, value) => {
-  switch (path) {
-    case 'form.process':
-      if (value === 'success') {
-        if (state.lang === 'ru') {
-          feedback.textContent = messages.success.ru;
-          feedback.classList.remove('text-danger');
-          feedback.classList.add('text-success');
-        } else {
-          feedback.textContent = messages.success.en;
-          feedback.classList.remove('text-danger');
-          feedback.classList.add('text-success');
-        }
-      }
-      break;
-    case 'form.error':
-      if (value) {
-        if (state.lang === 'ru') {
-          feedback.textContent = value.message;
-          feedback.classList.remove('text-success');
-          feedback.classList.add('text-danger');
-        } else {
-          feedback.textContent = value.message;
-          feedback.classList.remove('text-success');
-          feedback.classList.add('text-danger');
-        }
-      }
-      break;
-    case 'data.feeds':
-      if (state.lang === 'ru') {
-        createFeedsRU(value);
-      } else {
-        createFeedsEN(value);
-      }
-      break;
-    case 'data.posts':
-      if (state.lang === 'ru') {
-        createPostsRU(value);
-      } else {
-        createPostsEN(value);
-      }
-      break;
-    default:
-      break;
+  input.removeAttribute('readonly');
+  button.disabled = false;
+
+  if (value) {
+    feedback.classList.remove('text-success');
+    feedback.classList.add('text-danger');
+    i18n.then((t) => {
+      feedback.textContent = t(value.message);
+    });
+    // console.log('innerHTML error: ' ,feedback.textContent)
+  } else {
+    feedback.classList.remove('text-danger');
+    feedback.textContent = '';
   }
-});
+};
 
-export default watcher;
+const watchedStateWrapper = (state, i18n) => {
+  const render = (path, value) => {
+    switch (path) {
+      case 'form.process':
+        handleProcess(value, i18n);
+        break;
+      case 'form.error':
+        handleError(value, i18n);
+        break;
+      case 'data.feeds':
+        createFeeds(value);
+        break;
+      case 'data.posts':
+        i18n.then((t) => {
+          createPosts(value, t);
+        });
+        break;
+      default:
+        throw new Error(`Unknown state at ${path} for ${value}`);
+    }
+  };
+
+  const watchState = onChange(state, render);
+
+  return watchState;
+};
+
+export default watchedStateWrapper;

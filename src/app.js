@@ -1,15 +1,12 @@
 import _ from 'lodash';
+import i18next from 'i18next';
+import ru from './locales/ru.js';
 import validateUrl from './validator.js';
 import parseData from './parser.js';
 import watcher from './view.js';
 import getProxyUrl from './proxy-loader.js';
 import updatePosts from './updateRss.js';
 
-const form = document.querySelector('.rss-form');
-const input = document.querySelector('input');
-const allPosts = document.querySelector('.posts');
-
-// Клик на Пост
 const clickOnPost = (e) => {
   const index = e.target.dataset.id;
   const links = document.querySelectorAll('.fw-bold');
@@ -18,26 +15,54 @@ const clickOnPost = (e) => {
     if (index === currLink) {
       link.classList.remove('fw-bold');
       link.classList.add('fw-normal', 'link-secondary');
-
-      // state.visitedPost.add(index);
-      // state.modal.currentPostID = index;
     }
   });
 };
 
+// Init function
 const app = () => {
+  const form = document.querySelector('form');
+  const allPosts = document.querySelector('.posts');
+
+  const i18n = i18next.createInstance().init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
+
+  const state = {
+    form: {
+      process: 'filling',
+      error: null,
+    },
+    data: {
+      feeds: [],
+      posts: [],
+    },
+  };
+
+  const watchedState = watcher(state, i18n);
+
+  // Click on the post
   allPosts.addEventListener('click', (e) => clickOnPost(e));
 
+  // Submit form
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const url = formData.get('url');
-    const watcherDataFeeds = watcher.data.feeds;
-    const watcherDataPosts = watcher.data.posts;
+
+    const watcherDataFeeds = watchedState.data.feeds;
+    const watcherDataPosts = watchedState.data.posts;
 
     validateUrl(url, watcherDataFeeds)
-      .then((link) => getProxyUrl(link))
+      .then((link) => {
+        watchedState.form.process = 'sending';
+        return getProxyUrl(link);
+      })
       .then((dataXml) => {
         const { title, description, posts } = parseData(dataXml);
         const id = _.uniqueId();
@@ -51,17 +76,16 @@ const app = () => {
 
         const dataPosts = posts.map((post) => ({ ...post, feedId: id }));
         watcherDataPosts.unshift(...dataPosts);
-        watcher.form.process = 'success';
+        watchedState.form.process = 'success';
 
         e.target.reset();
-        input.focus();
       })
       .catch((error) => {
-        watcher.form.error = error;
-        watcher.form.process = 'invalid';
+        watchedState.form.error = error;
+        watchedState.form.process = 'invalid';
       });
 
-    setTimeout(() => updatePosts(watcher), 5000);
+    setTimeout(() => updatePosts(watchedState), 5000);
   });
 };
 
