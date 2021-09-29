@@ -18,7 +18,7 @@ const handleProcess = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t('messageSuccess.success');
     });
-    console.log('innerHTML: ', feedback.textContent)
+    // console.log('innerHTML: ', feedback.textContent)
 
     input.removeAttribute('readonly');
     button.disabled = false;
@@ -37,13 +37,12 @@ const handleError = (value, i18n) => {
   button.disabled = false;
 
   if (value) {
-    console.log(value)
     feedback.classList.remove('text-success');
     feedback.classList.add('text-danger');
     i18n.then((t) => {
       feedback.textContent = t(value.message);
     });
-    console.log('innerHTML error: ' ,feedback.textContent)
+    // console.log('innerHTML error: ' ,feedback.textContent)
   } else {
     feedback.classList.remove('text-danger');
     feedback.textContent = '';

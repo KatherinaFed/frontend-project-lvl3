@@ -24,7 +24,7 @@ const app = () => {
   const form = document.querySelector('form');
   const allPosts = document.querySelector('.posts');
 
-   const i18n = i18next.createInstance().init({
+  const i18n = i18next.createInstance().init({
     lng: 'ru',
     debug: true,
     resources: {
@@ -54,7 +54,6 @@ const app = () => {
 
     const formData = new FormData(e.target);
     const url = formData.get('url');
-    console.log(url)
 
     const watcherDataFeeds = watchedState.data.feeds;
     const watcherDataPosts = watchedState.data.posts;
@@ -83,7 +82,7 @@ const app = () => {
       })
       .catch((error) => {
         watchedState.form.error = error;
-        // watchedState.form.process = 'invalid';
+        watchedState.form.process = 'invalid';
       });
 
     setTimeout(() => updatePosts(watchedState), 5000);
