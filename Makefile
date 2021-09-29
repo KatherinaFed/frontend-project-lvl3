@@ -4,7 +4,8 @@ install-deps:
 	npm ci
 
 build:
-	npm run build
+	rm -rf dist
+	NODE_ENV=production npx webpack
 
 lint:
 	npx eslint ./src/
