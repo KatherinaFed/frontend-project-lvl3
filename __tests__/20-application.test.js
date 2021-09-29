@@ -13,7 +13,7 @@ import app from '../src/app.js';
 // const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join('..', '__tests__', '__fixtures__', filename);
-const readFixture = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
+const readFixture = (filename) => fs.readFileSync(path.resolve(__dirname, getFixturePath(filename)), 'utf-8');
 
 const rss1 = readFixture('rss1.xml');
 // const rss2 = readFixture('rss2.xml');

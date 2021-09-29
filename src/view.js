@@ -42,7 +42,7 @@ const handleError = (value, i18n) => {
     i18n.then((t) => {
       feedback.textContent = t(value.message);
     });
-    // console.log('innerHTML error: ' ,feedback.textContent)
+    // console.log('innerHTML error: ' ,feedback.textContent)git remote
   } else {
     feedback.classList.remove('text-danger');
     feedback.textContent = '';

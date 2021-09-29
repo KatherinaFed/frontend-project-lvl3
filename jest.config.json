@@ -1,4 +1,7 @@
 {
   "verbose": true,
-  "testEnvironment": "jsdom"
+  "testEnvironment": "jsdom",
+  "transform": {
+    "\\.[jt]sx?$": "babel-jest"
+  }
 }
