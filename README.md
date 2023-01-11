@@ -5,7 +5,7 @@
 ### About the service:
 This is a service for aggregating RSS feeds, with the help of which it is convenient to read various sources, for example, blogs. It allows an unlimited number of RSS feeds, updates them itself and updates new entries to the general stream.
 
-### [Try the service](https://frontend-project-lvl3-6j76s4lrw-katherinafed.vercel.app)
+### [Try the service](https://katherinafed.github.io/frontend-project-lvl3/)
 
 #### RSS links for test:
 1. https://ru.hexlet.io/lessons.rss - Hexlet programming courses (RU);
