@@ -16,4 +16,7 @@ test:
 start:
 	npx webpack serve --open
 
+deploy:
+	npm run deploy
+
 .PHONY: test
