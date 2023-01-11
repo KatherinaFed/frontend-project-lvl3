@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import i18next from 'i18next';
-import ru from './locales/ru.js';
+import en from './locales/en.js';
 import validateUrl from './validator.js';
 import parseData from './parser.js';
 import watcher from './view.js';
@@ -25,10 +25,10 @@ const app = () => {
   const allPosts = document.querySelector('.posts');
 
   const i18n = i18next.createInstance().init({
-    lng: 'ru',
+    lng: 'en',
     debug: false,
     resources: {
-      ru,
+      en,
     },
   });
 
