@@ -23,7 +23,7 @@ const rssUrl = 'https://ru.hexlet.io/lessons.rss';
 const html = readFixture('document.html');
 const htmlUrl = 'https://ru.hexlet.io';
 
-const corsProxy = 'https://hexlet-allorigins.herokuapp.com';
+const corsProxy = 'https://allorigins.hexlet.app';
 const corsProxyApi = `${corsProxy}/get`;
 
 const getResponseHandler = (url, data) => rest.get(corsProxyApi, (req, res, ctx) => {
@@ -75,7 +75,7 @@ test('adding', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  expect(await screen.findByText(/RSS успешно загружен/i)).toBeInTheDocument();
+  expect(await screen.findByText(/RSS successfully uploaded/i)).toBeInTheDocument();
 });
 
 test('validation (unique)', async () => {
@@ -85,18 +85,18 @@ test('validation (unique)', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  expect(await screen.findByText(/RSS успешно загружен/i)).toBeInTheDocument();
+  expect(await screen.findByText(/RSS successfully uploaded/i)).toBeInTheDocument();
 
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  expect(await screen.findByText(/RSS уже существует/i)).toBeInTheDocument();
+  expect(await screen.findByText(/RSS already exists/i)).toBeInTheDocument();
 });
 
 test('validation (valid url)', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), 'wrong');
   userEvent.click(screen.getByRole('button', { name: 'add' }));
-  expect(await screen.findByText(/Ссылка должна быть валидным URL/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Link must be a valid URL/i)).toBeInTheDocument();
 });
 
 test('handling non-rss url', async () => {
@@ -106,7 +106,7 @@ test('handling non-rss url', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), htmlUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  expect(await screen.findByText(/Ресурс не содержит валидный RSS/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Resource doesn`t include valid RSS/i)).toBeInTheDocument();
 });
 
 test('handling network error', async () => {
@@ -117,7 +117,7 @@ test('handling network error', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  expect(await screen.findByText(/Ошибка сети/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Network error/i)).toBeInTheDocument();
 });
 
 describe('handle disabling ui elements during loading', () => {
@@ -186,7 +186,7 @@ test('modal', async () => {
   userEvent.type(screen.getByRole('textbox', { name: 'url' }), rssUrl);
   userEvent.click(screen.getByRole('button', { name: 'add' }));
 
-  const previewBtns = await screen.findAllByRole('button', { name: /Просмотр/i });
+  const previewBtns = await screen.findAllByRole('button', { name: /View/i });
   expect(screen.getByRole('link', { name: /Агрегация \/ Python: Деревья/i })).toHaveClass('fw-bold');
   userEvent.click(previewBtns[0]);
   const modalBody = await screen.findByText('Цель: Научиться извлекать из дерева необходимые данные');
